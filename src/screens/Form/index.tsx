@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
 import Toast from 'react-native-toast-message';
 import uuid from 'react-native-uuid';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { styles } from './styles';
 
@@ -13,6 +14,23 @@ export function Form() {
   const [name, setName] = useState("")
   const [user, setUser] = useState("")
   const [password, setPassword] = useState("")
+
+  function handleNew(){
+
+    const id = uuid.v4()
+    
+    const newData = {
+      id,
+      name,
+      user,
+      password,
+    }
+
+    AsyncStorage.setItem()
+
+    console.log(newData)
+
+  }
 
 
   return (
@@ -41,13 +59,14 @@ export function Form() {
               label="Senha"
               secureTextEntry
               onChangeText={setPassword}
-              value={value}
+              value={password}
             />
           </View>
 
           <View style={styles.footer}>
             <Button
               title="Salvar"
+              onPress={handleNew}
             />
           </View>
         </ScrollView>
