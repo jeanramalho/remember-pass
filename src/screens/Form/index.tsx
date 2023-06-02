@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
 import Toast from 'react-native-toast-message';
 import uuid from 'react-native-uuid';
@@ -10,6 +10,9 @@ import { Button } from '../../components/Button';
 import { HeaderForm } from '../../components/HeaderForm';
 
 export function Form() {
+  const [name, setName] = useState("")
+  const [user, setUser] = useState("")
+  const [password, setPassword] = useState("")
 
 
   return (
@@ -25,14 +28,20 @@ export function Form() {
           <View style={styles.form}>
             <Input
               label="Nome do serviço"
+              onChangeText={setName}
+              value={name}
             />
             <Input
               label="E-mail ou usuário"
               autoCapitalize="none"
+              onChangeText={setUser}
+              value={user}
             />
             <Input
               label="Senha"
               secureTextEntry
+              onChangeText={setPassword}
+              value={value}
             />
           </View>
 
