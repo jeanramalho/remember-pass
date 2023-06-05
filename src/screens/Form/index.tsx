@@ -16,7 +16,7 @@ export function Form() {
   const [password, setPassword] = useState("")
 
   async function handleNew(){
-
+    try{
     const id = uuid.v4()
     
     const newData = {
@@ -27,7 +27,18 @@ export function Form() {
     }
 
     await AsyncStorage.setItem("@rememberpass:passwords", JSON.stringify(newData))
-
+    Toast.show({
+      type: "success",
+      text1: "Salvo com sucesso!"
+      })
+    }catch(error){
+      console.log(error)
+      
+      Toast.show({
+        type: "error",
+        text1: "Não foi possível salvar!"
+        })
+    }
   }
 
 
