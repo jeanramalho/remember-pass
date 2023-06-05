@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
 import Toast from 'react-native-toast-message';
 import uuid from 'react-native-uuid';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage, { useAsyncStorage } from '@react-native-async-storage/async-storage';
 
 import { styles } from './styles';
 
@@ -15,6 +15,8 @@ export function Form() {
   const [user, setUser] = useState("")
   const [password, setPassword] = useState("")
 
+  const { getItem, setItem } = useAsyncStorage("@rememberpass:passwords")
+
   async function handleNew(){
     try{
     const id = uuid.v4()
@@ -26,7 +28,12 @@ export function Form() {
       password,
     }
 
-    await AsyncStorage.setItem("@rememberpass:passwords", JSON.stringify(newData))
+    const response = await getItem()
+    const previousData = response ? JSON.parse(response) : []
+
+    const data = [...previousData, newData]
+
+    await setItem(JSON.stringify(data))
     Toast.show({
       type: "success",
       text1: "Salvo com sucesso!"
