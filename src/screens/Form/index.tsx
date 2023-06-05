@@ -15,7 +15,7 @@ export function Form() {
   const [user, setUser] = useState("")
   const [password, setPassword] = useState("")
 
-  function handleNew(){
+  async function handleNew(){
 
     const id = uuid.v4()
     
@@ -26,9 +26,7 @@ export function Form() {
       password,
     }
 
-    AsyncStorage.setItem()
-
-    console.log(newData)
+    await AsyncStorage.setItem("@rememberpass:passwords", JSON.stringify(newData))
 
   }
 
